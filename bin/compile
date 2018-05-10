@@ -21,7 +21,6 @@ cd aria2c
 wget -q $DOWNLOAD_URL
 tar xjf $FILE_NAME --strip-components=1
 rm $FILE_NAME
-cp ca-certificates.crt /app/cert.crt
 echo "exporting PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/aria2c.sh"
 mkdir -p $(dirname $PROFILE_PATH)
