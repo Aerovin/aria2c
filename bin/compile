@@ -7,7 +7,8 @@ indent() {
 echo "-----> Install aria2c"
 BUILD_DIR=$1
 VENDOR_DIR="vendor"
-DOWNLOAD_URL="https://github.com/q3aql/aria2-static-builds/releases/download/v1.33.1/aria2-1.33.1-linux-gnu-64bit-build1.tar.bz2"
+FILE_NAME="aria2-1.33.1-linux-gnu-64bit-build1.tar.bz2"
+DOWNLOAD_URL="https://github.com/q3aql/aria2-static-builds/releases/download/v1.33.1/"$FILE_NAME
 PREFIX=/usr
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
@@ -17,7 +18,9 @@ mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
 mkdir -p aria2c
 cd aria2c
-curl -L --silent $DOWNLOAD_URL | tar jxvf --strip-components=1
+wget $DOWNLOAD_URL
+tar xvjf $FILE_NAME --strip-components=1
+rm $FILE_NAME
 mkdir -p /etc/ssl/certs/
 mkdir -p $(PREFIX)/share/man/man1/
 cp aria2c $(PREFIX)/bin
