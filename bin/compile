@@ -19,7 +19,7 @@ cd $VENDOR_DIR
 mkdir -p aria2c
 cd aria2c
 wget -q $DOWNLOAD_URL
-tar xvjf $FILE_NAME --strip-components=1
+tar xjf $FILE_NAME --strip-components=1
 rm $FILE_NAME
 echo "exporting PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/aria2c.sh"
