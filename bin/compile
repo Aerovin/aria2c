@@ -18,18 +18,9 @@ mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
 mkdir -p aria2c
 cd aria2c
-wget $DOWNLOAD_URL
+wget -q $DOWNLOAD_URL
 tar xvjf $FILE_NAME --strip-components=1
 rm $FILE_NAME
-mkdir -p /etc/ssl/certs/
-mkdir -p $(PREFIX)/share/man/man1/
-cp aria2c $(PREFIX)/bin
-cp man-aria2c $(PREFIX)/share/man/man1/aria2c.1
-cp ca-certificates.crt /etc/ssl/certs/
-chmod 755 $(PREFIX)/bin/aria2c
-chmod 644 $(PREFIX)/share/man/man1/aria2c.1
-chmod 644 /etc/ssl/certs/ca-certificates.crt
-
 echo "exporting PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/aria2c.sh"
 mkdir -p $(dirname $PROFILE_PATH)
