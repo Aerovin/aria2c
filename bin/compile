@@ -1,0 +1,33 @@
+#!/bin/sh
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+echo "-----> Install aria2c"
+BUILD_DIR=$1
+VENDOR_DIR="vendor"
+DOWNLOAD_URL="https://github.com/q3aql/aria2-static-builds/releases/download/v1.33.1/aria2-1.33.1-linux-gnu-64bit-build1.tar.bz2"
+PREFIX=/usr
+
+echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
+
+cd $BUILD_DIR
+mkdir -p $VENDOR_DIR
+cd $VENDOR_DIR
+mkdir -p aria2c
+cd aria2c
+curl -L --silent $DOWNLOAD_URL | tar jxvf --strip-components=1
+mkdir -p /etc/ssl/certs/
+mkdir -p $(PREFIX)/share/man/man1/
+cp aria2c $(PREFIX)/bin
+cp man-aria2c $(PREFIX)/share/man/man1/aria2c.1
+cp ca-certificates.crt /etc/ssl/certs/
+chmod 755 $(PREFIX)/bin/aria2c
+chmod 644 $(PREFIX)/share/man/man1/aria2c.1
+chmod 644 /etc/ssl/certs/ca-certificates.crt
+
+echo "exporting PATH" | indent
+PROFILE_PATH="$BUILD_DIR/.profile.d/aria2c.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:${HOME}/vendor/aria2c"' >> $PROFILE_PATH
